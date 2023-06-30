@@ -1,0 +1,105 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: products-api
+  labels:
+    app: products-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: products-api
+  template:
+    metadata:
+      labels:
+        app: products-api
+    spec:
+      containers:
+        - name: products-api
+          image: claudiocassimiro/products-api:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DATABASE_URL
+              value: postgresql://productsapi:productsapi123@localhost:5432/products_api_db?schema=public
+            - name: DB_USER
+              value: ${DB_USER}
+            - name: DB_PASSWORD
+              value: ${DB_PASSWORD}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: products-api-svc
+  labels:
+    version: v1
+    app: products-api
+spec:
+  selector:
+    app: products-api
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+  labels:
+    app: postgres
+spec:
+  serviceName: postgres-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest
+          env:
+            - name: POSTGRES_USER
+              value: ${DB_USER}
+            - name: POSTGRES_PASSWORD
+              value: ${DB_PASSWORD}
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: db-storage
+  volumeClaimTemplates:
+    - metadata:
+        name: db-storage
+      spec:
+        storageClassName: standard
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-svc
+  labels:
+    version: v1
+    app: postgres
+spec:
+  selector:
+    app: postgres
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
