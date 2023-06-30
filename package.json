@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --transpile-only src/server.ts",
+    "build": "tsc",
+    "docker:build": "docker build -t claudiocassimiro/products-api:latest .",
+    "docker:push": "docker push claudiocassimiro/products-api:latest",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint:fix": "eslint --fix src --ext .ts"
   },
