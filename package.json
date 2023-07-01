@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/api/server.ts",
-    "start": "node ./dist/server.js",
+    "start": "node ./dist/api/server.js",
     "build": "tsc",
     "start:migrate:prod": "npx prisma migrate deploy && npm run start",
     "docker:build": "docker build -t claudiocassimiro/products-api:latest .",
