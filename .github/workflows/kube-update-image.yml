@@ -13,22 +13,18 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v2
 
-      - name: Install the Linode CLI
-        uses: linode/action-linode-cli@v1
+      - name: Kubernetes set context
+        uses: Azure/k8s-set-context@v1
         with:
-          token: ${{ secrets.LINODE_TOKEN }}
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
       - name: Configurar o ambiente do Docker
         uses: docker/setup-buildx-action@v1
 
-      - name: Docker build e push
+      - name: Docker build, push e Kubernetes apply
         run: |
           docker build -t claudiocassimiro/products-api:latest .
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker push claudiocassimiro/products-api:latest
-
-      - name: Atualizar imagem no Kubernetes no Linode
-        run: |
-          linode-cli lke cluster kubeconfig view --kubeconfig kubeconfig.yaml --cluster-id lke117125
-          export KUBECONFIG=kubeconfig.yaml
-          kubectl set image deployment/products-api products-api=claudiocassimiro/products-api:latest
+          kubectl apply -f k8s.yaml
