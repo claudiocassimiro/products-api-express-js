@@ -4,10 +4,10 @@ import type { Products } from '@prisma/client';
 import { productValidation } from '../helpers/productValidation';
 
 export const createProductController = async (req: Request, res: Response) => {
-  try {
-    const { name, description, price } = req.body as Products;
-    productValidation({ name, description, price });
+  const { name, description, price } = req.body as Products;
+  productValidation({ name, description, price });
 
+  try {
     const product = await createProductService({
       name,
       description,
