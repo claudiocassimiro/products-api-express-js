@@ -13,6 +13,11 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v2
 
+      - name: Install the Linode CLI
+        uses: linode/action-linode-cli@v1
+        with:
+          token: ${{ secrets.LINODE_TOKEN }}
+
       - name: Configurar o ambiente do Docker
         uses: docker/setup-buildx-action@v1
 
@@ -20,11 +25,6 @@ jobs:
         run: |
           docker build -t claudiocassimiro/products-api:latest .
           docker push claudiocassimiro/products-api:latest
-
-      - name: Configurar a CLI do Linode
-        uses: Linode/action-configure-linode-cli@v0.2.1
-        with:
-          linode-token: ${{ secrets.LINODE_TOKEN }}
 
       - name: Atualizar imagem no Kubernetes no Linode
         run: |
