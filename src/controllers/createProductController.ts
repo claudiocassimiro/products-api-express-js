@@ -5,9 +5,9 @@ import { productValidation } from '../helpers/productValidation';
 
 export const createProductController = async (req: Request, res: Response) => {
   const { name, description, price } = req.body as Products;
-  productValidation({ name, description, price });
 
   try {
+    productValidation({ name, description, price });
     const product = await createProductService({
       name,
       description,
