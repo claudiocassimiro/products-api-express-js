@@ -2,11 +2,10 @@ import { Request, Response } from 'express';
 import { deleteProductService } from '../services/deleteProductsService';
 
 export const deleteProductController = async (req: Request, res: Response) => {
+  const { id } = req.body as { id: string };
+  if (!id) throw Error('O id do produto é necessário');
+
   try {
-    const { id } = req.body as { id: string };
-
-    if (!id) throw Error('O id do produto é necessário');
-
     await deleteProductService(id);
 
     return res.status(202).json({
