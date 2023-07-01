@@ -14,7 +14,7 @@ export const createProductController = async (req: Request, res: Response) => {
       price,
     });
 
-    if (!product) throw Error;
+    if (!product) throw new Error();
 
     return res.status(201).json({
       message: 'Novo produto criado com sucesso',
@@ -23,7 +23,6 @@ export const createProductController = async (req: Request, res: Response) => {
   } catch (err) {
     return res.status(500).json({
       message: 'Erro ao salvar o produto no banco',
-      error: err.message,
     });
   }
 };
