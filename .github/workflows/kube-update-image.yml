@@ -24,6 +24,7 @@ jobs:
       - name: Docker build e push
         run: |
           docker build -t claudiocassimiro/products-api:latest .
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker push claudiocassimiro/products-api:latest
 
       - name: Atualizar imagem no Kubernetes no Linode
