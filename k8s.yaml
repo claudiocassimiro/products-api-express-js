@@ -80,7 +80,7 @@ spec:
     - metadata:
         name: db-storage
       spec:
-        storageClassName: standard
+        storageClassName: linode-block-storage-retain
         accessModes:
           - ReadWriteOnce
         resources:
