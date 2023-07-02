@@ -19,7 +19,7 @@ app.use(apiRoutes);
 apiRoutes.get('/', getProductsController);
 apiRoutes.get('/api/product/:id', getProductByIdController);
 apiRoutes.post('/api/create', createProductController);
-apiRoutes.post('/api/edit', editProductController);
+apiRoutes.put('/api/edit', editProductController);
 apiRoutes.delete('/api/delete', deleteProductController);
 
 app.listen(process.env.PORT || 3000, () => {
