@@ -14,7 +14,6 @@ export const deleteProductController = async (req: Request, res: Response) => {
   } catch (err) {
     return res.status(500).json({
       message: 'Erro ao deletar o produto no banco',
-      error: err.message,
     });
   }
 };
