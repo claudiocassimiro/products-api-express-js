@@ -21,7 +21,7 @@ spec:
           ports:
             - containerPort: 3000
           env:
-            - name: DB_URL
+            - name: DATABASE_URL
               value: postgresql://$(DB_USER):$(DB_PASSWORD)@postgres-svc:5432/products_api_db?schema=public
             - name: DB_USER
               valueFrom:
