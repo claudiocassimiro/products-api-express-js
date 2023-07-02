@@ -18,4 +18,4 @@ COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/prisma ./prisma
 
-CMD ["node", "dist/server.js"]
+CMD ["node", "dist/api/server.js"]
