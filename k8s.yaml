@@ -123,7 +123,7 @@ metadata:
   name: products-api-secret
 type: Opaque
 data:
-  db-user: cHJvZHVjdHNhcGkK
+  db-user: cHJvZHVjdHNhcGk
   db-password: cHJvZHVjdHNhcGkxMjM=
 
 ---
@@ -133,5 +133,5 @@ metadata:
   name: postgres-secret
 type: Opaque
 data:
-  postgres-user: cHJvZHVjdHNhcGk=
+  postgres-user: cHJvZHVjdHNhcGk
   postgres-password: cHJvZHVjdHNhcGkxMjM=
