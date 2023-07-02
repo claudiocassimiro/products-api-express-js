@@ -89,3 +89,14 @@ O deploy foi feito utilizando terraform para provisionar o cluster com kubernete
 
 - Para acessar em produção utilize `http://139.144.240.44:3000/`
 - Para acessar o swagger em produção utilize `http://139.144.240.44:3000/api-docs/`
+
+## Referencias:
+
+Utilizei bastante da habilidade de pesquisa para concluir o desafio
+
+- [Mini Curso Gratuito de Kubernetes para Devs Javascript || Erick Wendel](https://www.youtube.com/watch?v=eXKg9B5ooaY&t)
+- [Terraforming Kubernetes on Linode | New Course Preview](https://www.youtube.com/watch?v=d-l-4nVuu10&t)
+- [Kubernetes Tutorial | How to set environment variables in Pods](https://www.youtube.com/watch?v=kbN8nMDqkRM)
+- [Linode documentation](https://www.linode.com/docs/)
+- [Kubernetes documentation](https://kubernetes.io/docs/home/)
+- [Terraform documentation](https://developer.hashicorp.com/terraform/docs)
