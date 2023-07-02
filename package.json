@@ -14,7 +14,7 @@
     "lint": "eslint . --ext .ts"
   },
   "keywords": [],
-  "author": "Truka Software",
+  "author": "Truka Software ©",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^4.16.1",
