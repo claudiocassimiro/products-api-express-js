@@ -21,18 +21,12 @@ spec:
           ports:
             - containerPort: 3000
           env:
+            - name: DB_PASSWORD
+              value: productsapi123
+            - name: DB_USER
+              value: productsapi
             - name: DATABASE_URL
               value: postgresql://$(DB_USER):$(DB_PASSWORD)@postgres-svc:5432/products_api_db?schema=public
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: my-secret
-                  key: DB_PASSWORD
-            - name: DB_USER
-              valueFrom:
-                secretKeyRef:
-                  name: my-secret
-                  key: DB_USER
 
 ---
 apiVersion: v1
@@ -84,15 +78,9 @@ spec:
           image: postgres:latest
           env:
             - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: my-secret-db
-                  key: POSTGRES_USER
+              value: productsapi
             - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: my-secret-db
-                  key: POSTGRES_PASSWORD
+              value: productsapi123
           ports:
             - containerPort: 5432
           volumeMounts:
