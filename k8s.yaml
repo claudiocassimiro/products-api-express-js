@@ -21,12 +21,18 @@ spec:
           ports:
             - containerPort: 3000
           env:
-            - name: DATABASE_URL
-              value: postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:5432/products_api_db?schema=public
+            - name: DB_URL
+              value: postgresql://$(DB_USER):$(DB_PASSWORD)@postgres-svc:5432/products_api_db?schema=public
             - name: DB_USER
-              value: ${DB_USER}
+              valueFrom:
+                secretKeyRef:
+                  name: products-api-secret
+                  key: db-user
             - name: DB_PASSWORD
-              value: ${DB_PASSWORD}
+              valueFrom:
+                secretKeyRef:
+                  name: products-api-secret
+                  key: db-password
 
 ---
 apiVersion: v1
@@ -58,26 +64,6 @@ spec:
   selector:
     matchLabels:
       app: postgres
-  template:
-    metadata:
-      labels:
-        app: postgres
-    spec:
-      containers:
-        - name: postgres
-          image: postgres:latest
-          env:
-            - name: POSTGRES_USER
-              value: ${DB_USER}
-            - name: POSTGRES_PASSWORD
-              value: ${DB_PASSWORD}
-            - name: PG_DATA
-              value: /word/data
-          ports:
-            - containerPort: 5432
-          volumeMounts:
-            - name: db-storage
-              mountPath: /work
   volumeClaimTemplates:
     - metadata:
         name: db-storage
@@ -88,6 +74,30 @@ spec:
         resources:
           requests:
             storage: 1Gi
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: postgres-user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: postgres-password
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: db-storage
+              mountPath: /work
 
 ---
 apiVersion: v1
@@ -105,3 +115,23 @@ spec:
     - protocol: TCP
       port: 5432
       targetPort: 5432
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: products-api-secret
+type: Opaque
+data:
+  db-user: cHJvZHVjdHNhcGkK
+  db-password: cHJvZHVjdHNhcGkxMjM=
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: postgres-secret
+type: Opaque
+data:
+  postgres-user: cHJvZHVjdHNhcGk=
+  postgres-password: cHJvZHVjdHNhcGkxMjM=
