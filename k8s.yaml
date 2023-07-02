@@ -78,7 +78,6 @@ spec:
           volumeMounts:
             - name: db-storage
               mountPath: /work
-
   volumeClaimTemplates:
     - metadata:
         name: db-storage
