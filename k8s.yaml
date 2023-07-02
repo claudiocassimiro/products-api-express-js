@@ -23,16 +23,16 @@ spec:
           env:
             - name: DATABASE_URL
               value: postgresql://$(DB_USER):$(DB_PASSWORD)@postgres-svc:5432/products_api_db?schema=public
-            - name: DB_USER
-              valueFrom:
-                secretKeyRef:
-                  name: my-secret
-                  key: DB_USER
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: my-secret
                   key: DB_PASSWORD
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: my-secret
+                  key: DB_USER
 
 ---
 apiVersion: v1
