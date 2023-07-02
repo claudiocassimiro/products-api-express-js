@@ -16,7 +16,7 @@ const apiRoutes = express.Router();
 app.use(express.json());
 app.use(apiRoutes);
 
-apiRoutes.get('/api', getProductsController);
+apiRoutes.get('/', getProductsController);
 apiRoutes.get('/api/product/:id', getProductByIdController);
 apiRoutes.post('/api/create', createProductController);
 apiRoutes.post('/api/edit', editProductController);
