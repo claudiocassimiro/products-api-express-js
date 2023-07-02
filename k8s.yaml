@@ -71,11 +71,14 @@ spec:
               value: ${DB_USER}
             - name: POSTGRES_PASSWORD
               value: ${DB_PASSWORD}
+            - name: PG_DATA
+              value: /word/data
           ports:
             - containerPort: 5432
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data/pgdata
-              name: db-storage
+            - name: db-storage
+              mountPath: /work
+
   volumeClaimTemplates:
     - metadata:
         name: db-storage
