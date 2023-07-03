@@ -51,7 +51,7 @@ Para executar a API, certifique-se de ter o Node.js e o npm instalados em sua m√
   DATABASE_URL="postgresql://productsapi:productsapi123@localhost:5432/products_api_db?schema=public"
   DB_USER="productsapi"
   DB_PASSWORD="productsapi123"
-  DB_HOST="localhost:3000"
+  DB_HOST="localhost"
   PORT=3000
 ```
 
