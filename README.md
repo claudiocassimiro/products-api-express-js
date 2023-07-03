@@ -81,14 +81,13 @@ Para executar a API, certifique-se de ter o Node.js e o npm instalados em sua m�
 
 ## SWAGGER
 
-Acesse a roda `localhost:3000/api-docs/` para testar as rotas com o swagger.
+Acesse a rota `localhost:3000/api-docs/` para testar as rotas com o swagger.
 
 ## Deployment
 
 O deploy foi feito utilizando terraform para provisionar o cluster com kubernetes no linode
 
 - Para acessar em produção utilize `http://139.144.240.44:3000/`
-- Para acessar o swagger em produção utilize `http://139.144.240.44:3000/api-docs/`
 
 ## Referencias:
 
